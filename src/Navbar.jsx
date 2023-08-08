@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { links, social } from "./data";
 import logo from "./logo.svg";
@@ -7,8 +7,13 @@ const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
 
   const toggleLinks = () => {
+    console.log(linksRef.current.getBoundingClientRect());
+
     setShowLinks(!showLinks);
   };
+
+  const linksContainerRef = useRef(null);
+  const linksRef = useRef(null);
 
   return (
     <nav>
@@ -19,13 +24,9 @@ const Navbar = () => {
             <FaBars />
           </button>
         </div>
-        
-        <div
-          className={
-            showLinks ? "links-container show-container" : "links-container"
-          }
-        >
-          <ul className="links">
+
+        <div className="links-container" ref={linksContainerRef}>
+          <ul className="links" ref={linksRef}>
             {links.map((link) => {
               const { id, url, text } = link;
               return (
