@@ -7,13 +7,17 @@ const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
 
   const toggleLinks = () => {
-    console.log(linksRef.current.getBoundingClientRect());
-
     setShowLinks(!showLinks);
   };
 
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
+
+  const linkStyles = {
+    height: showLinks
+      ? `${linksRef.current.getBoundingClientRect().height}px`
+      : "0px",
+  };
 
   return (
     <nav>
@@ -25,7 +29,11 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="links-container" ref={linksContainerRef}>
+        <div
+          className="links-container"
+          ref={linksContainerRef}
+          style={linkStyles}
+        >
           <ul className="links" ref={linksRef}>
             {links.map((link) => {
               const { id, url, text } = link;
